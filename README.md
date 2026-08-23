@@ -4,9 +4,12 @@
 
 Welcome to the official hands-on repository accompanying the **Full Data Science & Machine Learning Course** on YouTube! 
 
+> [!IMPORTANT]
+> **Recommended Learning Path**: Simply copying or building projects without understanding the core theoretical and practical fundamentals of Data Science and Machine Learning will not give you a solid foundation. If you are new to ML/Data Science, **watch the full YouTube video course first** to master the concepts before diving into these 9 hands-on projects!
+> 
 > 📺 **Watch the Full Video Course on YouTube**: [Data Science & Machine Learning Full Course](https://youtu.be/Ln9f16vI67U?si=JUgKclZXp7HDYFs4)
 
-This repository is designed to help students and developers master Data Science and Machine Learning by building **9 real-world projects** step by step across three core pillars: **Regression**, **Classification**, and **Clustering**.
+This repository is designed to help students and developers master Data Science and Machine Learning step by step across three core pillars: **Regression**, **Classification**, and **Clustering** by building **9 real-world projects**.
 
 ---
 
