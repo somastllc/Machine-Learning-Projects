@@ -34,10 +34,10 @@ Machine-Learning-Project/
 │   ├── Car-price-prediction/   # Project 2: Used car market valuation with engine text mining
 │   └── Medical-instrunce/      # Project 3: Health insurance charge prediction with risk interaction terms
 │
-├── 🎯 Classification/          # 🔄 SECTION 2: CLASSIFICATION (3 PROJECTS - UPCOMING)
-│   ├── Project-4/              # Project 4: Credit Risk / Customer Churn Prediction
-│   ├── Project-5/              # Project 5: Medical Diagnostics Classification
-│   └── Project-6/              # Project 6: Fraud / Spam Detection
+├── 🎯 Classificitions/         # ✅ SECTION 2: CLASSIFICATION (3/3 COMPLETED)
+│   ├── Customer-chunk/         # Project 4: Bank customer churn & attrition prediction
+│   ├── Credit-Card-fruad/      # Project 5: Highly imbalanced credit card fraud detection
+│   └── Heart-disease/          # Project 6: Cardiovascular clinical risk classification
 │
 └── 🧩 Clustering/              # 🔄 SECTION 3: CLUSTERING (3 PROJECTS - UPCOMING)
     ├── Project-7/              # Project 7: E-Commerce Customer Segmentation (K-Means)
@@ -57,6 +57,16 @@ Machine-Learning-Project/
 
 ---
 
+## 🎯 Section 2: Classification (Completed)
+
+| # | Project | Key ML Concepts & Feature Engineering | Documentation |
+| :-: | :--- | :--- | :-: |
+| **04** | 🏦 **Bank Customer Churn** | Feature alignment across train/test splits, one-hot encoding (`Geography`, `Gender`), Logistic Regression & Random Forest Classifier | [`README`](./Classificitions/Customer-chunk/README.md) |
+| **05** | 💳 **Credit Card Fraud** | Imbalanced dataset handling, PCA feature preservation (`V1`-`V28`), `StandardScaler` (`Time`, `Amount`), Precision/Recall analysis | [`README`](./Classificitions/Credit-Card-fruad/README.md) |
+| **06** | 🩺 **Heart Disease Risk** | Clinical risk classification, multi-categorical dummy encoding (`cp`, `restecg`, `slope`, `thal`), Confusion Matrix diagnostics | [`README`](./Classificitions/Heart-disease/README.md) |
+
+---
+
 ## 🛠️ Project Design & Code Organization
 
 Each project directory follows a clean, standardized layout:
@@ -65,11 +75,11 @@ Each project directory follows a clean, standardized layout:
 <Project-Folder>/
 ├── dataset/             # Raw and preprocessed CSV datasets
 ├── models/              # Saved model binaries (*.pkl - ignored by Git)
-├── outputs/             # Saved visual plots (residuals, scatter plots)
+├── outputs/             # Saved visual plots (confusion matrices, residual plots)
 ├── preprocessing.py     # Data cleaning, encoding & feature engineering
 ├── train.py             # Model training & serialization
-├── evaluate.py          # Metrics evaluation (MAE, RMSE, R²) & plotting
-├── predict.py           # Single-sample inference pipeline
+├── evaluate.py          # Metrics evaluation (Accuracy, Precision, Recall, F1) & plotting
+├── predict.py           # Single-sample / batch inference pipeline
 ├── requirements.txt     # Python package dependencies
 └── README.md            # Individual project documentation
 ```
@@ -80,22 +90,22 @@ Each project directory follows a clean, standardized layout:
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/goobolabs/Machine-Learning-Project.git
-cd Machine-Learning-Project
+git clone https://github.com/goobolabs/Machine-Learning-Projects.git
+cd Machine-Learning-Projects
 ```
 
 ### 2. Run a Specific Project
-Navigate into any completed project folder, install dependencies, and execute the scripts in sequence:
+Navigate into any completed project folder (e.g., Bank Customer Churn), install dependencies, and execute the scripts in sequence:
 
 ```bash
-cd Regressition/Calories-Burnt
+cd Classificitions/Customer-chunk
 pip install -r requirements.txt
 
 # Run the 4-step pipeline
 python preprocessing.py   # Clean raw data & engineer features
 python train.py           # Train models & save binaries
 python evaluate.py        # Evaluate metrics & generate plots
-python predict.py         # Run inference on sample data
+python predict.py         # Run inference on sample / test data
 ```
 
 ---
@@ -103,4 +113,4 @@ python predict.py         # Run inference on sample data
 ## 📺 Course Links & Instructor
 - 🎥 **YouTube Course**: [Watch Full Course on YouTube](https://youtu.be/Ln9f16vI67U?si=JUgKclZXp7HDYFs4)
 - 👨‍🏫 **Instructors**: Omar Tood & Mr Sharafdin
-- 💻 **GitHub Repository**: [github.com/goobolabs/Machine-Learning-Project](https://github.com/goobolabs/Machine-Learning-Project)
+- 💻 **GitHub Repository**: [github.com/goobolabs/Machine-Learning-Projects](https://github.com/goobolabs/Machine-Learning-Projects)
