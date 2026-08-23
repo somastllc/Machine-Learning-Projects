@@ -99,5 +99,5 @@ python predict.py         # Run inference on sample data
 
 ## 📺 Course Links & Instructor
 - 🎥 **YouTube Course**: [Watch Full Course on YouTube](https://youtu.be/Ln9f16vI67U?si=JUgKclZXp7HDYFs4)
-- 👨‍🏫 **Instructor**: Omar Tood
+- 👨‍🏫 **Instructors**: Omar Tood & Mr Sharafdin
 - 💻 **GitHub Repository**: [github.com/goobolabs/Machine-Learning-Project](https://github.com/goobolabs/Machine-Learning-Project)
