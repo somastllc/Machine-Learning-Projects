@@ -1,91 +1,99 @@
-# 🤖 Machine Learning Projects Repository
+# 🚀 13-Hour Data Science & Machine Learning Course — Hands-On Projects
 
-Welcome to the **Machine Learning Projects** repository developed as part of the **Goobo Labs Bootcamp**. This repository serves as a comprehensive portfolio of end-to-end Machine Learning implementations—ranging from data preprocessing and feature engineering to model training, evaluation, and inference.
+Welcome to the official repository for the **13-Hour Data Science & Machine Learning YouTube Course**! 
+
+This repository is designed to accompany the course, taking learners from foundational data science concepts to building **9 complete, real-world Machine Learning projects** across three core pillars: **Regression**, **Classification**, and **Clustering**.
 
 ---
 
-## 🗺️ Repository Structure & Learning Roadmap
+## 🎓 About The Course
 
-The repository is organized by Machine Learning paradigms:
+The goal of this 13-hour comprehensive course is to bridge the gap between theory and practical application. Instead of focusing solely on toy datasets, learners build production-ready ML workflows covering:
+- Data cleaning & exploratory data analysis (EDA)
+- Regular expression (Regex) text mining & feature engineering
+- Model selection, cross-validation, and metric evaluation
+- Serialization (`joblib`/`pickle`) and real-world inference pipelines
+
+---
+
+## 🗺️ 9-Project Roadmap
+
+The course is structured into **3 core sections**, containing **3 projects per section** (9 total projects):
 
 ```
 Machine-Learning-Project/
-├── 📈 Regressition/            # ✅ COMPLETED
-│   ├── Calories-Burnt/         # Calorie expenditure estimation from body & workout sensors
-│   ├── Car-price-prediction/   # Used vehicle valuation with regex engine text mining
-│   └── Medical-instrunce/      # Health insurance charge prediction with risk interaction features
-├── 🎯 Classification/          # 🔄 UPCOMING
-└── 🧩 Clustering/              # 🔄 UPCOMING
+├── 📈 Regressition/            # ✅ SECTION 1: REGRESSION (3/3 COMPLETED)
+│   ├── Calories-Burnt/         # Project 1: Calorie expenditure estimation from body & exercise sensors
+│   ├── Car-price-prediction/   # Project 2: Used car market valuation with engine text mining
+│   └── Medical-instrunce/      # Project 3: Health insurance charge prediction with risk interaction terms
+│
+├── 🎯 Classification/          # 🔄 SECTION 2: CLASSIFICATION (3 PROJECTS - UPCOMING)
+│   ├── Project-4/              # Project 4: Credit Risk / Customer Churn Prediction
+│   ├── Project-5/              # Project 5: Medical Diagnostics Classification
+│   └── Project-6/              # Project 6: Fraud / Spam Detection
+│
+└── 🧩 Clustering/              # 🔄 SECTION 3: CLUSTERING (3 PROJECTS - UPCOMING)
+    ├── Project-7/              # Project 7: E-Commerce Customer Segmentation (K-Means)
+    ├── Project-8/              # Project 8: Spatial & Behavioral Anomaly Clustering
+    └── Project-9/              # Project 9: Hierarchical / Pattern Analysis
 ```
 
 ---
 
-## 📈 1. Regression Projects (`/Regressition`)
+## 📈 Section 1: Regression (Completed)
 
-| Project Name | Problem Description | Key Algorithms | Features & Engineering | Subfolder |
-| :--- | :--- | :--- | :--- | :--- |
-| 🏋️ **Calories Burnt** | Predict calories burned during workouts | Linear Regression, Random Forest | Heart Rate, Body Temp, Workout Duration, `BMI` | [`/Calories-Burnt`](./Regressition/Calories-Burnt) |
-| 🚗 **Car Price Prediction** | Estimate resale value of used cars | Linear Regression, Random Forest | Regex Engine parsing (HP/Liters), `CarAge`, `MileagePerYear` | [`/Car-price-prediction`](./Regressition/Car-price-prediction) |
-| 🏥 **Medical Insurance** | Predict individual health insurance charges | Linear Regression | Demographic data, One-Hot region encoding, `bmi_smoker` interaction | [`/Medical-instrunce`](./Regressition/Medical-instrunce) |
-
-> 📌 *Each project subfolder contains its own detailed [`README.md`](./Regressition/Calories-Burnt/README.md) with architectural flowcharts, feature breakdowns, and instructions.*
+| # | Project | Key ML Concepts & Feature Engineering | Documentation |
+| :-: | :--- | :--- | :-: |
+| **01** | 🏋️ **Calories Burnt** | Physiological metric modeling, `BMI` feature derivation, Linear Regression vs. Random Forest Regressor | [`README`](./Regressition/Calories-Burnt/README.md) |
+| **02** | 🚗 **Car Price Prediction** | Regex string mining (`HP`, `Engine_Liters`), 99th percentile price capping, `CarAge`, `MileagePerYear` | [`README`](./Regressition/Car-price-prediction/README.md) |
+| **03** | 🏥 **Medical Insurance** | Non-linear interaction terms (`bmi_smoker`), one-hot regional encoding, Linear Regression modeling | [`README`](./Regressition/Medical-instrunce/README.md) |
 
 ---
 
-## 🎯 2. Classification Projects (`/Classification`) — *Upcoming*
+## 🛠️ Project Design & Code Organization
 
-*Planned projects focusing on binary and multi-class classification tasks (e.g., Logistic Regression, Decision Trees, Support Vector Machines, XGBoost).*
+Each project directory follows a clean, standardized layout:
 
----
-
-## 🧩 3. Clustering Projects (`/Clustering`) — *Upcoming*
-
-*Planned projects focusing on unsupervised learning, customer segmentation, and pattern recognition (e.g., K-Means, Hierarchical Clustering, DBSCAN).*
-
----
-
-## 🛠️ End-to-End Project Workflow Standard
-
-Every project in this repository adheres to a modular, production-ready project layout:
-
-1. **`preprocessing.py`**: Merges raw datasets, handles missing values, removes duplicates, encodes categorical features, and performs custom feature engineering. Exports clean dataset to `dataset/clean_*.csv`.
-2. **`train.py`**: Splits data (80/20 train/test split), scales numerical attributes (where applicable), fits models, and exports trained model binaries and metadata (`.pkl`) to `models/`.
-3. **`evaluate.py`**: Evaluates models on holdout test data using metrics ($R^2$, MAE, RMSE) and generates diagnostic visual outputs (`actual_vs_predicted.png`, `residuals.png`) saved to `outputs/`.
-4. **`predict.py`**: Runs inference on new, unseen data samples using saved model pipelines.
+```
+<Project-Folder>/
+├── dataset/             # Raw and preprocessed CSV datasets
+├── models/              # Saved model binaries (*.pkl - ignored by Git)
+├── outputs/             # Saved visual plots (residuals, scatter plots)
+├── preprocessing.py     # Data cleaning, encoding & feature engineering
+├── train.py             # Model training & serialization
+├── evaluate.py          # Metrics evaluation (MAE, RMSE, R²) & plotting
+├── predict.py           # Single-sample inference pipeline
+├── requirements.txt     # Python package dependencies
+└── README.md            # Individual project documentation
+```
 
 ---
 
-## 🔒 Git & Binary File Management
+## ⚙️ Quick Start Guide
 
-To maintain repository efficiency and comply with GitHub file size recommendations:
-- Heavy serialized model binaries (`*.pkl`) are excluded via [.gitignore](./.gitignore).
-- Data cleaning scripts (`preprocessing.py`) and training scripts (`train.py`) allow full reproducibility of all model artifacts locally.
-
----
-
-## 🚀 Getting Started
-
-### Prerequisites
-- Python 3.8+
-- `pip` package manager
-
-### Installation
-Clone the repository:
+### 1. Clone the Repository
 ```bash
 git clone https://github.com/goobolabs/Machine-Learning-Project.git
 cd Machine-Learning-Project
 ```
 
-To run a specific project (e.g. Calories Burnt):
+### 2. Run a Specific Project
+Navigate into any completed project folder, install dependencies, and execute the scripts in sequence:
+
 ```bash
 cd Regressition/Calories-Burnt
 pip install -r requirements.txt
-python preprocessing.py
-python train.py
-python evaluate.py
+
+# Run the 4-step pipeline
+python preprocessing.py   # Clean raw data & engineer features
+python train.py           # Train models & save binaries
+python evaluate.py        # Evaluate metrics & generate plots
+python predict.py         # Run inference on sample data
 ```
 
 ---
 
-## 👤 Author
-**Omar Tood** — *Goobo Labs Bootcamp*
+## 📢 Course Instructor & Community
+- **Course**: 13-Hour Data Science & Machine Learning Masterclass
+- **Instructor**: Omar Tood
+- **Repository**: [github.com/goobolabs/Machine-Learning-Project](https://github.com/goobolabs/Machine-Learning-Project)
