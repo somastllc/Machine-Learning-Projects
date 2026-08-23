@@ -1,24 +1,28 @@
-# 🚀 13-Hour Data Science & Machine Learning Course — Hands-On Projects
+# 🚀 Data Science & Machine Learning — Hands-On Projects
 
-Welcome to the official repository for the **13-Hour Data Science & Machine Learning YouTube Course**! 
+[![YouTube Watch Course](https://img.shields.io/badge/YouTube-Watch%20Full%20Course-red?style=for-the-badge&logo=youtube)](https://youtu.be/Ln9f16vI67U?si=JUgKclZXp7HDYFs4)
 
-This repository is designed to accompany the course, taking learners from foundational data science concepts to building **9 complete, real-world Machine Learning projects** across three core pillars: **Regression**, **Classification**, and **Clustering**.
+Welcome to the official hands-on repository accompanying the **Full Data Science & Machine Learning Course** on YouTube! 
+
+> 📺 **Watch the Full Video Course on YouTube**: [Data Science & Machine Learning Full Course](https://youtu.be/Ln9f16vI67U?si=JUgKclZXp7HDYFs4)
+
+This repository is designed to help students and developers master Data Science and Machine Learning by building **9 real-world projects** step by step across three core pillars: **Regression**, **Classification**, and **Clustering**.
 
 ---
 
 ## 🎓 About The Course
 
-The goal of this 13-hour comprehensive course is to bridge the gap between theory and practical application. Instead of focusing solely on toy datasets, learners build production-ready ML workflows covering:
-- Data cleaning & exploratory data analysis (EDA)
-- Regular expression (Regex) text mining & feature engineering
-- Model selection, cross-validation, and metric evaluation
-- Serialization (`joblib`/`pickle`) and real-world inference pipelines
+Instead of focusing solely on theoretical math or toy datasets, this course walks you through building production-ready Machine Learning workflows:
+- Data cleaning, merging & exploratory data analysis (EDA)
+- Feature engineering & regular expression (Regex) text parsing
+- Training, evaluating, and tuning Machine Learning algorithms
+- Saving model pipelines (`joblib`/`pickle`) and deploying real-world inference scripts
 
 ---
 
-## 🗺️ 9-Project Roadmap
+## 🗺️ 9-Project Learning Roadmap
 
-The course is structured into **3 core sections**, containing **3 projects per section** (9 total projects):
+The course repository is structured into **3 main sections**, featuring **3 practical projects per section** (9 projects in total):
 
 ```
 Machine-Learning-Project/
@@ -93,7 +97,7 @@ python predict.py         # Run inference on sample data
 
 ---
 
-## 📢 Course Instructor & Community
-- **Course**: 13-Hour Data Science & Machine Learning Masterclass
-- **Instructor**: Omar Tood
-- **Repository**: [github.com/goobolabs/Machine-Learning-Project](https://github.com/goobolabs/Machine-Learning-Project)
+## 📺 Course Links & Instructor
+- 🎥 **YouTube Course**: [Watch Full Course on YouTube](https://youtu.be/Ln9f16vI67U?si=JUgKclZXp7HDYFs4)
+- 👨‍🏫 **Instructor**: Omar Tood
+- 💻 **GitHub Repository**: [github.com/goobolabs/Machine-Learning-Project](https://github.com/goobolabs/Machine-Learning-Project)
