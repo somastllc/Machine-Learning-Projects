@@ -1,7 +1,7 @@
 import pandas as pd
 
-TRAIN_PATH = "./dataset/train.csv"
-TEST_PATH = "./dataset/test.csv"
+TRAIN_PATH = "./dataset/Train_data.csv"
+TEST_PATH = "./dataset/Test_data.csv"
 
 train = pd.read_csv(TRAIN_PATH)
 test = pd.read_csv(TEST_PATH)
@@ -17,20 +17,23 @@ print("\n=== TRAIN MISSING VALUES ===")
 print(train.isnull().sum())
 
 print("\n=== TARGET DISTRIBUTION ===")
-print(train["Exited"].value_counts())
+print(train["class"].value_counts())
 
-# 2) Remove duplicates
+# 2) Remove duplicates from training data
 train = train.drop_duplicates()
-test = test.drop_duplicates()
 
-# 3) Drop identifiers / high-cardinality names
-drop_cols = ["id", "CustomerId", "Surname"]
+# 3) Encode target
+train["class"] = train["class"].map({
+    "normal": 0,
+    "anomaly": 1
+})
 
-train = train.drop(columns=drop_cols)
-test = test.drop(columns=drop_cols)
-
-# 4) Encode categorical columns
-categorical_cols = ["Geography", "Gender"]
+# 4) One-hot encode categorical columns
+categorical_cols = [
+    "protocol_type",
+    "service",
+    "flag"
+]
 
 train = pd.get_dummies(
     train,
@@ -44,12 +47,10 @@ test = pd.get_dummies(
     dtype=int
 )
 
-# 5) Make train and test feature columns match
-target = "Exited"
-
+# 5) Make test features match training features
 feature_cols = [
     col for col in train.columns
-    if col != target
+    if col != "class"
 ]
 
 test = test.reindex(
@@ -57,18 +58,18 @@ test = test.reindex(
     fill_value=0
 )
 
-# 6) Convert target to integer
-train[target] = train[target].astype(int)
+# 6) Final snapshot
+print("\n=== FINAL TRAIN SHAPE ===")
+print(train.shape)
 
-# 7) Final snapshot
-print("\n=== FINAL TRAIN HEAD ===")
-print(train.head())
+print("\n=== FINAL TEST SHAPE ===")
+print(test.shape)
 
 print("\n=== FINAL MISSING VALUES ===")
 print("Train:", train.isnull().sum().sum())
 print("Test :", test.isnull().sum().sum())
 
-# 8) Save cleaned datasets
+# 7) Save clean datasets
 train.to_csv(
     "./dataset/clean_train.csv",
     index=False

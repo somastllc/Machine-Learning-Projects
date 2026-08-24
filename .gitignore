@@ -1,8 +1,13 @@
-# Model files (Pickle)
+# Model files (Pickle & Saved Binaries)
 *.pkl
+**/*.pkl
 *.joblib
+**/*.joblib
 *.h5
 *.onnx
+models/
+**/models/
+
 
 # Python cache & build outputs
 __pycache__/

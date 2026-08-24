@@ -32,11 +32,11 @@ The course repository is structured into **3 main sections**, featuring **3 prac
 Machine-Learning-Project/
 ├── 📈 Regressition/            # ✅ SECTION 1: REGRESSION (3/3 COMPLETED)
 │   ├── Calories-Burnt/         # Project 1: Calorie expenditure estimation from body & exercise sensors
-│   ├── Car-price-prediction/   # Project 2: Used car market valuation with engine text mining
+│   ├── Energy-consumption/     # Project 2: Building energy consumption forecasting with operational & temporal features
 │   └── Medical-instrunce/      # Project 3: Health insurance charge prediction with risk interaction terms
 │
 ├── 🎯 Classificitions/         # ✅ SECTION 2: CLASSIFICATION (3/3 COMPLETED)
-│   ├── Customer-chunk/         # Project 4: Bank customer churn & attrition prediction
+│   ├── Network-Intrusion/      # Project 4: Cyber security network intrusion detection & anomaly classification
 │   ├── Credit-Card-fruad/      # Project 5: Highly imbalanced credit card fraud detection
 │   └── Heart-disease/          # Project 6: Cardiovascular clinical risk classification
 │
@@ -53,7 +53,7 @@ Machine-Learning-Project/
 | # | Project | Key ML Concepts & Feature Engineering | Documentation |
 | :-: | :--- | :--- | :-: |
 | **01** | 🏋️ **Calories Burnt** | Physiological metric modeling, `BMI` feature derivation, Linear Regression vs. Random Forest Regressor | [`README`](./Regressition/Calories-Burnt/README.md) |
-| **02** | 🚗 **Car Price Prediction** | Regex string mining (`HP`, `Engine_Liters`), 99th percentile price capping, `CarAge`, `MileagePerYear` | [`README`](./Regressition/Car-price-prediction/README.md) |
+| **02** | ⚡ **Energy Consumption** | Environmental & operational scaling (`StandardScaler`), temporal hour extraction, HVAC/Lighting binary encoding | [`README`](./Regressition/Energy-consumption/README.md) |
 | **03** | 🏥 **Medical Insurance** | Non-linear interaction terms (`bmi_smoker`), one-hot regional encoding, Linear Regression modeling | [`README`](./Regressition/Medical-instrunce/README.md) |
 
 ---
@@ -62,7 +62,7 @@ Machine-Learning-Project/
 
 | # | Project | Key ML Concepts & Feature Engineering | Documentation |
 | :-: | :--- | :--- | :-: |
-| **04** | 🏦 **Bank Customer Churn** | Feature alignment across train/test splits, one-hot encoding (`Geography`, `Gender`), Logistic Regression & Random Forest Classifier | [`README`](./Classificitions/Customer-chunk/README.md) |
+| **04** | 🛡️ **Network Intrusion** | Cyber-security traffic classification, protocol/service one-hot encoding, train/test feature alignment, LR vs RF | [`README`](./Classificitions/Network-Intrusion/README.md) |
 | **05** | 💳 **Credit Card Fraud** | Imbalanced dataset handling, PCA feature preservation (`V1`-`V28`), `StandardScaler` (`Time`, `Amount`), Precision/Recall analysis | [`README`](./Classificitions/Credit-Card-fruad/README.md) |
 | **06** | 🩺 **Heart Disease Risk** | Clinical risk classification, multi-categorical dummy encoding (`cp`, `restecg`, `slope`, `thal`), Confusion Matrix diagnostics | [`README`](./Classificitions/Heart-disease/README.md) |
 
@@ -96,10 +96,10 @@ cd Machine-Learning-Projects
 ```
 
 ### 2. Run a Specific Project
-Navigate into any completed project folder (e.g., Bank Customer Churn), install dependencies, and execute the scripts in sequence:
+Navigate into any completed project folder (e.g., Network Intrusion Detection), install dependencies, and execute the scripts in sequence:
 
 ```bash
-cd Classificitions/Customer-chunk
+cd Classificitions/Network-Intrusion
 pip install -r requirements.txt
 
 # Run the 4-step pipeline

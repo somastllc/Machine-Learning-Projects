@@ -16,8 +16,8 @@ DATA_PATH = "./dataset/clean_train.csv"
 df = pd.read_csv(DATA_PATH)
 
 # 1) Define features and target
-X = df.drop(columns=["Exited"])
-y = df["Exited"]
+X = df.drop(columns=["class"])
+y = df["class"]
 
 # 2) Same train/test split
 X_train, X_test, y_train, y_test = train_test_split(
@@ -28,7 +28,7 @@ X_train, X_test, y_train, y_test = train_test_split(
     stratify=y
 )
 
-# 3) Load models and scaler
+# 3) Load models and preprocessing objects
 lr = joblib.load(
     "./models/logistic_regression.pkl"
 )
@@ -41,29 +41,25 @@ scaler = joblib.load(
     "./models/scaler.pkl"
 )
 
-scale_cols = [
-    "CreditScore",
-    "Age",
-    "Tenure",
-    "Balance",
-    "NumOfProducts",
-    "EstimatedSalary"
-]
+scale_cols = joblib.load(
+    "./models/scale_columns.pkl"
+)
 
+# 4) Prepare Logistic Regression test data
 X_test_lr = X_test.copy()
 
 X_test_lr[scale_cols] = scaler.transform(
     X_test[scale_cols]
 )
 
-# 4) Predictions
+# 5) Predictions
 p_lr = lr.predict(X_test_lr)
 p_rf = rf.predict(X_test)
 
 prob_lr = lr.predict_proba(X_test_lr)[:, 1]
 prob_rf = rf.predict_proba(X_test)[:, 1]
 
-# 5) Evaluation function
+# 6) Evaluation function
 def evaluate_model(name, y_true, y_pred, y_prob):
     accuracy = accuracy_score(y_true, y_pred)
     precision = precision_score(y_true, y_pred)
@@ -92,7 +88,7 @@ evaluate_model(
     prob_rf
 )
 
-# 6) Single-row sanity check
+# 7) Single-row sanity check
 # Pick one unseen row from X_test and predict with both models.
 # Use iloc[[i]] to keep it as a DataFrame with column names.
 
@@ -120,7 +116,7 @@ print(f"Actual Class : {y_true}")
 print(f"LR Prediction: {p_lr_one}")
 print(f"RF Prediction: {p_rf_one}")
 
-# 7) Confusion Matrix - Logistic Regression
+# 8) Confusion Matrix - Logistic Regression
 ConfusionMatrixDisplay.from_predictions(
     y_test,
     p_lr
@@ -138,7 +134,7 @@ plt.savefig(
 
 plt.close()
 
-# 8) Confusion Matrix - Random Forest
+# 9) Confusion Matrix - Random Forest
 ConfusionMatrixDisplay.from_predictions(
     y_test,
     p_rf

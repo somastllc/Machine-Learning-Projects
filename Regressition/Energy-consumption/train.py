@@ -1,4 +1,3 @@
-
 import joblib
 import pandas as pd
 
@@ -7,12 +6,12 @@ from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 
-DATA_PATH = "./dataset/clean_used_cars.csv"
+DATA_PATH = "./dataset/clean_energy.csv"
 df = pd.read_csv(DATA_PATH)
 
 # 1) Define features and target
-X = df.drop(columns=["Price"])
-y = df["Price"]
+X = df.drop(columns=["EnergyConsumption"])
+y = df["EnergyConsumption"]
 
 # 2) Train/test split
 X_train, X_test, y_train, y_test = train_test_split(
@@ -24,11 +23,12 @@ X_train, X_test, y_train, y_test = train_test_split(
 
 # 3) Scale numerical features for Linear Regression
 scale_cols = [
-    "Mileage",
-    "Horsepower",
-    "Engine_Liters",
-    "CarAge",
-    "MileagePerYear",
+    "Temperature",
+    "Humidity",
+    "SquareFootage",
+    "Occupancy",
+    "RenewableEnergy",
+    "Hour"
 ]
 
 scaler = StandardScaler()
@@ -56,11 +56,26 @@ rf = RandomForestRegressor(
 
 rf.fit(X_train, y_train)
 
-# 6) Save models and training information
-joblib.dump(lr, "./models/linear_regression.pkl")
-joblib.dump(rf, "./models/random_forest.pkl")
-joblib.dump(scaler, "./models/scaler.pkl")
-joblib.dump(X.columns.tolist(), "./models/feature_columns.pkl")
+# 6) Save models and preprocessing objects
+joblib.dump(
+    lr,
+    "./models/linear_regression.pkl"
+)
+
+joblib.dump(
+    rf,
+    "./models/random_forest.pkl"
+)
+
+joblib.dump(
+    scaler,
+    "./models/scaler.pkl"
+)
+
+joblib.dump(
+    X.columns.tolist(),
+    "./models/feature_columns.pkl"
+)
 
 print("Training complete.")
 print("Saved Linear Regression, Random Forest, scaler, and feature columns.")

@@ -10,8 +10,8 @@ DATA_PATH = "./dataset/clean_train.csv"
 df = pd.read_csv(DATA_PATH)
 
 # 1) Define features and target
-X = df.drop(columns=["Exited"])
-y = df["Exited"]
+X = df.drop(columns=["class"])
+y = df["class"]
 
 # 2) Train/test split
 X_train, X_test, y_train, y_test = train_test_split(
@@ -22,14 +22,12 @@ X_train, X_test, y_train, y_test = train_test_split(
     stratify=y
 )
 
-# 3) Scale numerical features for Logistic Regression
+# 3) Select numerical columns for scaling
 scale_cols = [
-    "CreditScore",
-    "Age",
-    "Tenure",
-    "Balance",
-    "NumOfProducts",
-    "EstimatedSalary"
+    col for col in X.columns
+    if not col.startswith(
+        ("protocol_type_", "service_", "flag_")
+    )
 ]
 
 scaler = StandardScaler()
@@ -55,8 +53,9 @@ lr.fit(X_train_lr, y_train)
 
 # 5) Train Random Forest
 rf = RandomForestClassifier(
-    n_estimators=200,
-    random_state=42
+    n_estimators=100,
+    random_state=42,
+    n_jobs=-1
 )
 
 rf.fit(X_train, y_train)
@@ -75,6 +74,11 @@ joblib.dump(
 joblib.dump(
     scaler,
     "./models/scaler.pkl"
+)
+
+joblib.dump(
+    scale_cols,
+    "./models/scale_columns.pkl"
 )
 
 joblib.dump(
