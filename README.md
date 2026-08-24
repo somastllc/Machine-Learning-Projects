@@ -1,6 +1,7 @@
 # 🚀 Data Science & Machine Learning — Hands-On Projects
 
 [![YouTube Watch Course](https://img.shields.io/badge/YouTube-Watch%20Full%20Course-red?style=for-the-badge&logo=youtube)](https://youtu.be/Ln9f16vI67U?si=JUgKclZXp7HDYFs4)
+[![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg?style=for-the-badge)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 
 Welcome to the official hands-on repository accompanying the **Full Data Science & Machine Learning Course** on YouTube! 
 
@@ -114,3 +115,15 @@ python predict.py         # Run inference on sample / test data
 - 🎥 **YouTube Course**: [Watch Full Course on YouTube](https://youtu.be/Ln9f16vI67U?si=JUgKclZXp7HDYFs4)
 - 👨‍🏫 **Instructors**: Omar Tood & Mr Sharafdin
 - 💻 **GitHub Repository**: [github.com/goobolabs/Machine-Learning-Projects](https://github.com/goobolabs/Machine-Learning-Projects)
+
+---
+
+## 📜 License & Copyright
+
+Copyright (c) 2026 **Goobo Labs**.
+
+This work is licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License (CC BY-NC-SA 4.0)](https://creativecommons.org/licenses/by-nc-sa/4.0/).
+
+- **Attribution**: You must give appropriate credit to **Goobo Labs**.
+- **NonCommercial**: You may not use the material for commercial purposes.
+- **ShareAlike**: If you remix, transform, or build upon the material, you must distribute your contributions under the same license.
