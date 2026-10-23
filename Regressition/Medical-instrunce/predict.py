@@ -7,9 +7,9 @@ model = joblib.load(MODEL_PATH)
 # Example new person
 age = 30
 sex = 'male'
-bmi = 27.5
-children = 1
-smoker = 'no'
+bmi = 23.5
+children = 3
+smoker = "yes"
 region = 'southwest'
 
 # Encode input the same way as preprocessing.py

@@ -37,7 +37,7 @@ Machine-Learning-Project/
 │
 ├── 🎯 Classificitions/         # ✅ SECTION 2: CLASSIFICATION (3/3 COMPLETED)
 │   ├── Network-Intrusion/      # Project 4: Cyber security network intrusion detection & anomaly classification
-│   ├── Credit-Card-fruad/      # Project 5: Highly imbalanced credit card fraud detection
+│   ├── student_dropout_classification/ # Project 5: Student academic dropout prediction & early risk classification
 │   └── Heart-disease/          # Project 6: Cardiovascular clinical risk classification
 │
 └── 🧩 Clustering/              # 🔄 SECTION 3: CLUSTERING (3 PROJECTS - UPCOMING)
@@ -63,7 +63,7 @@ Machine-Learning-Project/
 | # | Project | Key ML Concepts & Feature Engineering | Documentation |
 | :-: | :--- | :--- | :-: |
 | **04** | 🛡️ **Network Intrusion** | Cyber-security traffic classification, protocol/service one-hot encoding, train/test feature alignment, LR vs RF | [`README`](./Classificitions/Network-Intrusion/README.md) |
-| **05** | 💳 **Credit Card Fraud** | Imbalanced dataset handling, PCA feature preservation (`V1`-`V28`), `StandardScaler` (`Time`, `Amount`), Precision/Recall analysis | [`README`](./Classificitions/Credit-Card-fruad/README.md) |
+| **05** | 🎓 **Student Dropout Risk** | Academic attrition prediction, demographic & behavioral encoding, missing value imputation, `StandardScaler`, LR vs RF | [`README`](./Classificitions/student_dropout_classification/README.md) |
 | **06** | 🩺 **Heart Disease Risk** | Clinical risk classification, multi-categorical dummy encoding (`cp`, `restecg`, `slope`, `thal`), Confusion Matrix diagnostics | [`README`](./Classificitions/Heart-disease/README.md) |
 
 ---

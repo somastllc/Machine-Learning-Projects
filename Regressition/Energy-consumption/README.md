@@ -124,3 +124,10 @@ python evaluate.py
 # 5. Run inference on custom building scenario
 python predict.py
 ```
+
+Set `price_per_kwh` and `currency` at the top of `predict.py` to your actual
+tariff. The default `0.50 USD` is only an example.
+The estimate multiplies each model's predicted energy by this price;
+it assumes `EnergyConsumption` is measured in kWh and covers the same period as
+the prediction. Confirm the dataset's units before using the estimate. Fixed
+fees, taxes, and tiered or time-dependent tariffs are not included.

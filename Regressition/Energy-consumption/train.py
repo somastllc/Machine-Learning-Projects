@@ -1,3 +1,5 @@
+import os
+
 import joblib
 import pandas as pd
 
@@ -57,6 +59,8 @@ rf = RandomForestRegressor(
 rf.fit(X_train, y_train)
 
 # 6) Save models and preprocessing objects
+os.makedirs("./models", exist_ok=True)
+
 joblib.dump(
     lr,
     "./models/linear_regression.pkl"

@@ -1,6 +1,10 @@
 import joblib
 import pandas as pd
 
+#Electricity price: replace these example values with your actual tariff. 
+price_per_kwh = 0.50
+currency = "USD"
+
 # 1) Load saved objects
 lr = joblib.load(
     "./models/linear_regression.pkl"
@@ -79,5 +83,15 @@ rf_prediction = float(
 )
 
 print("\n=== ENERGY CONSUMPTION PREDICTION ===")
-print(f"Linear Regression: {lr_prediction:.2f}")
-print(f"Random Forest    : {rf_prediction:.2f}")
+print(f"Linear Regression: {lr_prediction:.2f} kWh")
+print(f"Random Forest    : {rf_prediction:.2f} kWh")
+
+# 6) Estimate usage cost for the same period as the energy prediction.
+lr_cost = lr_prediction * price_per_kwh
+rf_cost = rf_prediction * price_per_kwh
+
+print("\n=== ESTIMATED ELECTRICITY COST ===")
+print(f"Price per kWh    : {price_per_kwh} {currency}")
+print(f"Linear Regression: {lr_cost:.2f} {currency}")
+print(f"Random Forest    : {rf_cost:.2f} {currency}")
+print("Assumes energy is in kWh; excludes fixed fees and taxes.")
