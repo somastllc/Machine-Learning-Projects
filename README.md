@@ -41,9 +41,9 @@ Machine-Learning-Project/
 │   └── Heart-disease/          # Project 6: Cardiovascular clinical risk classification
 │
 └── 🧩 Clustering/              # ✅ SECTION 3: CLUSTERING (3/3 COMPLETED)
-    ├── human_activity_clustering/          # Project 7: Human activity time-series sensor windowing & motion clustering
-    ├── movie_preference_clustering/        # Project 8: User movie taste & genre preference profiling (MovieLens K-Means)
-    └── online_shopping_behavior_clustering/ # Project 9: E-commerce session visitor intent & conversion segmentation
+    ├── mall_customer_segmentation/         # Project 7: Income & spending-based customer segmentation
+    ├── football_player_clustering/         # Project 8: Statistical playing-style clustering
+    └── mobile_usage_clustering/            # Project 9: Smartphone usage behavior segmentation
 ```
 
 ---
@@ -72,9 +72,9 @@ Machine-Learning-Project/
 
 | # | Project | Key ML Concepts & Feature Engineering | Documentation |
 | :-: | :--- | :--- | :-: |
-| **07** | 🏃 **Human Activity Recognition** | Time-series accelerometer magnitude, 100-reading temporal windowing (`mean`, `std`), `StandardScaler`, K-Means ($k=3$), Elbow Method & PCA | [`README`](./Clustering/human_activity_clustering/README.md) |
-| **08** | 🎬 **Movie Preference Profiling** | Relational MovieLens merge, genre preference score engineering ($\text{share} \times \frac{\text{rating}}{5}$), `StandardScaler`, K-Means ($k=4$), Elbow Method & PCA | [`README`](./Clustering/movie_preference_clustering/README.md) |
-| **09** | 🛍️ **Online Shopper Intent** | E-commerce web telemetry, session duration & bounce rate scaling (`StandardScaler`), K-Means ($k=3$), conversion rate evaluation & PCA | [`README`](./Clustering/online_shopping_behavior_clustering/README.md) |
+| **07** | **Mall Customer Segmentation** | Income and spending features, `StandardScaler`, K-Means (`k=5`), cluster profiles & Elbow Method | [`README`](./Clustering/mall_customer_segmentation/README.md) |
+| **08** | **Football Player Clustering** | 15 playing-style statistics, minimum playing-time filter, `StandardScaler`, K-Means (`k=3`), position interpretation & PCA | [`README`](./Clustering/football_player_clustering/README.md) |
+| **09** | **Mobile Usage Clustering** | Four mobile usage features, `StandardScaler`, K-Means (`k=5`), sampled silhouette evaluation & PCA | [`README`](./Clustering/mobile_usage_clustering/README.md) |
 
 ---
 
@@ -89,7 +89,7 @@ Each project directory follows a clean, standardized layout:
 ├── outputs/             # Saved visual plots (confusion matrices, residual plots)
 ├── preprocessing.py     # Data cleaning, encoding & feature engineering
 ├── train.py             # Model training & serialization
-├── evaluate.py          # Metrics evaluation (Accuracy, Precision, Recall, F1) & plotting
+├── evaluate.py          # Task-specific metrics evaluation & plotting
 ├── predict.py           # Single-sample / batch inference pipeline
 ├── requirements.txt     # Python package dependencies
 └── README.md            # Individual project documentation

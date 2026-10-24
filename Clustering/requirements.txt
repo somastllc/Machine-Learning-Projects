@@ -1,0 +1,3 @@
+-r football_player_clustering/requirements.txt
+-r mall_customer_segmentation/requirements.txt
+-r mobile_usage_clustering/requirements.txt

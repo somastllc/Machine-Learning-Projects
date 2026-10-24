@@ -1,0 +1,20 @@
+# Local Python environments and caches
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ipynb_checkpoints/
+# Rebuild model artifacts with train.py
+models/
+*.pkl
+*.joblib
+# Local settings and secrets
+.env
+.env.*
+!.env.example
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
