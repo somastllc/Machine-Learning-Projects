@@ -16,8 +16,11 @@ __pycache__/
 *.so
 .Python
 env/
+**/env/
 venv/
+**/venv/
 ENV/
+**/ENV/
 .venv/
 **/.venv/
 

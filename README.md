@@ -40,10 +40,10 @@ Machine-Learning-Project/
 │   ├── student_dropout_classification/ # Project 5: Student academic dropout prediction & early risk classification
 │   └── Heart-disease/          # Project 6: Cardiovascular clinical risk classification
 │
-└── 🧩 Clustering/              # 🔄 SECTION 3: CLUSTERING (3 PROJECTS - UPCOMING)
-    ├── Project-7/              # Project 7: E-Commerce Customer Segmentation (K-Means)
-    ├── Project-8/              # Project 8: Spatial & Behavioral Anomaly Clustering
-    └── Project-9/              # Project 9: Hierarchical / Pattern Analysis
+└── 🧩 Clustering/              # ✅ SECTION 3: CLUSTERING (3/3 COMPLETED)
+    ├── human_activity_clustering/          # Project 7: Human activity time-series sensor windowing & motion clustering
+    ├── movie_preference_clustering/        # Project 8: User movie taste & genre preference profiling (MovieLens K-Means)
+    └── online_shopping_behavior_clustering/ # Project 9: E-commerce session visitor intent & conversion segmentation
 ```
 
 ---
@@ -65,6 +65,16 @@ Machine-Learning-Project/
 | **04** | 🛡️ **Network Intrusion** | Cyber-security traffic classification, protocol/service one-hot encoding, train/test feature alignment, LR vs RF | [`README`](./Classificitions/Network-Intrusion/README.md) |
 | **05** | 🎓 **Student Dropout Risk** | Academic attrition prediction, demographic & behavioral encoding, missing value imputation, `StandardScaler`, LR vs RF | [`README`](./Classificitions/student_dropout_classification/README.md) |
 | **06** | 🩺 **Heart Disease Risk** | Clinical risk classification, multi-categorical dummy encoding (`cp`, `restecg`, `slope`, `thal`), Confusion Matrix diagnostics | [`README`](./Classificitions/Heart-disease/README.md) |
+
+---
+
+## 🧩 Section 3: Clustering (Completed)
+
+| # | Project | Key ML Concepts & Feature Engineering | Documentation |
+| :-: | :--- | :--- | :-: |
+| **07** | 🏃 **Human Activity Recognition** | Time-series accelerometer magnitude, 100-reading temporal windowing (`mean`, `std`), `StandardScaler`, K-Means ($k=3$), Elbow Method & PCA | [`README`](./Clustering/human_activity_clustering/README.md) |
+| **08** | 🎬 **Movie Preference Profiling** | Relational MovieLens merge, genre preference score engineering ($\text{share} \times \frac{\text{rating}}{5}$), `StandardScaler`, K-Means ($k=4$), Elbow Method & PCA | [`README`](./Clustering/movie_preference_clustering/README.md) |
+| **09** | 🛍️ **Online Shopper Intent** | E-commerce web telemetry, session duration & bounce rate scaling (`StandardScaler`), K-Means ($k=3$), conversion rate evaluation & PCA | [`README`](./Clustering/online_shopping_behavior_clustering/README.md) |
 
 ---
 

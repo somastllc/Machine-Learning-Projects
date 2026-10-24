@@ -43,7 +43,7 @@ X_test_lr[scale_cols] = scaler.transform(
     X_test[scale_cols]
 )
 
-# 4) Train Logistic Regression
+# 4) Traiogistic Regressionn
 lr = LogisticRegression(
     max_iter=1000,
     random_state=42

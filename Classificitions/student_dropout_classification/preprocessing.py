@@ -3,7 +3,7 @@ import pandas as pd
 CSV_PATH = "./dataset/student_dropout_dataset_v3.csv"
 df = pd.read_csv(CSV_PATH)
 
-# 1) Initial snapshot
+INI
 print("\n=== INITIAL HEAD ===")
 print(df.head())
 

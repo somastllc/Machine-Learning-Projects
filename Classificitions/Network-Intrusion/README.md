@@ -122,3 +122,20 @@ python evaluate.py
 # 5. Execute test set batch predictions
 python predict.py
 ```
+
+### View all features in one chart
+
+```bash
+python visualize_features.py
+```
+
+Saves `outputs/all_features.png` with all 41 original features and the class
+target, using colors to compare normal and anomaly records. Counts use log
+axes; long-tailed numeric features use `log1p`. Large categorical features show
+the top 10 values plus an `Other` group. No training or preprocessing is needed.
+
+To plot another dataset:
+
+```bash
+python visualize_features.py --data dataset/Test_data.csv --output outputs/test_features.png
+```
