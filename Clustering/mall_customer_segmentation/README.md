@@ -1,97 +1,170 @@
-# Mall Customer Segmentation
+# 🛍️ Mall Customer Segmentation
 
-Groups customers by income and spending behavior to support customer profiling.
+An end-to-end unsupervised Machine Learning project that discovers similar customers using **K-Means Clustering**, standardized numerical features, cluster profiles, and visual diagnostics.
 
 ---
 
-## Problem Statement & Overview
+## 📌 Problem Statement & Overview
 
-This unsupervised learning project uses **StandardScaler** and **K-Means** to discover similar records without training labels. The workflow covers preprocessing, training, evaluation, visualization, and prediction for a new sample.
+### The Problem
+Customer groups with similar incomes can have very different spending habits. Grouping customers by both annual income and spending score helps describe these differences and supports more focused marketing analysis.
 
-## Pipeline Architecture
+### The Machine Learning Solution
+This project removes duplicate customer records and drops CustomerID, standardizes annual income and spending score, and fits **K-Means Clustering** with five clusters. Age and Gender are retained for interpreting customer groups but are excluded from training.
+
+---
+
+## ⚙️ Pipeline Architecture
 
 ```text
-Raw CSV -> preprocessing.py -> cleaned CSV
-        -> train.py -> scaler + KMeans + feature columns
-        -> evaluate.py -> metrics, profiles and plots
-        -> predict.py -> sample cluster assignment
+    ┌────────────────────────────────────────────────────────────────┐
+    │ dataset/Mall_Customers.csv                                     │
+    └────────────────────────────────────────────────────────────────┘
+                                    │
+                                    ▼
+    ┌────────────────────────────────────────────────────────────────┐
+    │ preprocessing.py                                               │
+    │ * Drop duplicate customer records                              │
+    │ * Remove CustomerID                                            │
+    └────────────────────────────────────────────────────────────────┘
+                                    │
+                                    ▼
+    ┌────────────────────────────────────────────────────────────────┐
+    │ dataset/clean_mall_customers.csv                               │
+    └────────────────────────────────────────────────────────────────┘
+                                    │
+                                    ▼
+    ┌────────────────────────────────────────────────────────────────┐
+    │ train.py                                                       │
+    │ * StandardScaler on clustering features                        │
+    │ * Fit KMeans (k=5, n_init=10, random_state=42)                 │
+    │ * Save model, scaler and feature columns                       │
+    └────────────────────────────────────────────────────────────────┘
+                                    │
+                                    ▼
+    ┌────────────────────────────────────────────────────────────────┐
+    │ evaluate.py                         predict.py                 │
+    │ * Silhouette and Davies-Bouldin      * Align sample features   │
+    │ * Elbow curve and cluster plots      * Scale sample input      │
+    │ * Cluster profiles and sizes         * Predict cluster ID      │
+    └────────────────────────────────────────────────────────────────┘
 ```
 
-## Dataset & Feature Description
+---
+
+## 📊 Dataset & Feature Description
 
 - **Raw dataset:** `dataset/Mall_Customers.csv` (200 records in the supplied file).
 - **Clean dataset:** `dataset/clean_mall_customers.csv` (200 records in the supplied file).
-- **Clustering features (2):** `Annual Income (k$)`, `Spending Score (1-100)`.
 
-Removes duplicate rows and drops CustomerID. Age and Gender are retained for interpretation but excluded from training.
+### Input Features
 
-## Model & Clustering Approach
+| Feature | Description | Values / Units |
+| :--- | :--- | :--- |
+| `Annual Income (k$)` | Annual customer income | Thousands of dollars |
+| `Spending Score (1-100)` | Customer spending score | Score from 1 to 100 |
 
-- **Algorithm:** `KMeans(n_clusters=5, random_state=42, n_init=10)`.
-- **Scaling:** `StandardScaler` fitted on the clustering features.
-- **Saved objects:** `models/kmeans.pkl`, `models/scaler.pkl`, `models/feature_columns.pkl`.
-- **Inference:** `predict.py` aligns its example input to the saved feature order, scales it, and assigns a cluster.
+### Metadata & Interpretation
 
-The scripts use a fixed cluster count. Evaluation plots inertia for candidate values 2 through 8; it does not automatically select or retrain the final model with a different value.
+- Age: mean age for each cluster.
+- Gender: normalized distribution per cluster.
 
-## Evaluation & Diagnostics
+### Cluster Assignment
 
-`evaluate.py` prints inertia, silhouette score, Davies-Bouldin score, cluster sizes, profiles, and a single-row sanity check. Higher silhouette and lower Davies-Bouldin scores generally indicate better separation; inertia is useful for comparing cluster counts on the same scaled dataset.
+- **`Cluster`**: an unsupervised group identifier from `0` to `4`.
+- No target labels are used during training. Cluster IDs are arbitrary; interpret each group using its feature means and metadata distributions.
 
-### Saved Cluster Profiles
+---
 
-These means come from the supplied `outputs/cluster_profiles.csv`; rerunning training can change the results and cluster IDs.
+## 🤖 Models Trained
 
-| Cluster | Age | Annual Income (k$) | Spending Score (1-100) |
-| --- | --- | --- | --- |
-| 0 | 42.72 | 55.3 | 49.52 |
-| 1 | 32.69 | 86.54 | 82.13 |
-| 2 | 25.27 | 25.73 | 79.36 |
-| 3 | 41.11 | 88.2 | 17.11 |
-| 4 | 45.22 | 26.3 | 20.91 |
+1. **K-Means Clustering**
+   - Fits **5 clusters** using `n_clusters=5`, `n_init=10`, and `random_state=42`.
+   - Uses **2 numerical features** standardized with `StandardScaler`.
+   - Saves `kmeans.pkl`, `scaler.pkl`, and `feature_columns.pkl` in `models/`.
+   - Assigns a new sample by restoring the saved feature order and applying the fitted scaler before prediction.
 
-The saved profiles describe middle-income moderate spenders, high-income high spenders, low-income high spenders, high-income low spenders, and low-income low spenders (clusters 0 through 4).
+The training script uses a fixed cluster count. The evaluation script compares inertia for candidate values of `k` from 2 through 8; it does not automatically change the trained model.
 
-### Visual Diagnostics
+---
 
-![Cluster visualization](outputs/customer_segments.png)
+## 📈 Evaluation & Diagnostics
 
-![Elbow method](outputs/elbow_method.png)
+Cluster quality is evaluated using unsupervised metrics:
 
-![Cluster sizes](outputs/cluster_sizes.png)
+| Evaluation Metric | Description | Interpretation |
+| :--- | :--- | :--- |
+| **Inertia** | Sum of squared distances to the assigned cluster centers | Compare across cluster counts on the same scaled data |
+| **Silhouette Score** | Cohesion within clusters relative to separation between clusters | Higher generally indicates better separation |
+| **Davies-Bouldin Score** | Within-cluster scatter relative to separation between cluster centers | Lower generally indicates better separation |
 
-## How to Run
+Metrics are computed on the standardized cleaned dataset used for training.
 
-Run these PowerShell commands from this project folder. The shared environment lives in the parent `Clustering` directory.
+The script also prints cluster sizes, mean profiles, metadata summaries, and a single-row prediction sanity check. These diagnostics describe the fitted groups; they are not supervised classification accuracy.
+
+### Diagnostic Artifacts (Saved in `outputs/`)
+
+- `outputs/cluster_profiles.csv`: Mean training features by cluster.
+- `outputs/cluster_sizes.png`: Number of records assigned to each cluster.
+- `outputs/elbow_method.png`: Inertia for candidate cluster counts from 2 through 8.
+- `outputs/customer_segments.png`: Income and spending scatter plot with cluster centers.
+
+---
+
+## 💻 How to Run
+
+Run the commands from `mall_customer_segmentation/`. Create and activate the shared environment once from `Clustering/`:
 
 ```powershell
-# Create the environment once if it does not exist
-python -m venv ../.venv
-../.venv/Scripts/python.exe -m pip install -r requirements.txt
-
-# Model directories are ignored by Git, so create them after cloning
-New-Item -ItemType Directory -Force models, outputs | Out-Null
-../.venv/Scripts/python.exe preprocessing.py
-../.venv/Scripts/python.exe train.py
-../.venv/Scripts/python.exe evaluate.py
-../.venv/Scripts/python.exe predict.py
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+cd mall_customer_segmentation
 ```
 
-On macOS/Linux, use `../.venv/bin/python` and `mkdir -p models outputs`. Run scripts from this project directory because their paths are relative to the current working directory. Edit the example in `predict.py` to assign your own sample; cluster IDs are arbitrary identifiers.
+```powershell
+# 1. Install dependencies
+python -m pip install -r requirements.txt
 
-## Directory Structure
+# 2. Create directories for generated artifacts after cloning
+New-Item -ItemType Directory -Force models, outputs | Out-Null
+
+# 3. Clean the raw dataset
+python preprocessing.py
+
+# 4. Scale features, train K-Means, and export model binaries
+python train.py
+
+# 5. Evaluate clustering metrics and generate diagnostic plots
+python evaluate.py
+
+# 6. Assign a cluster to the example input
+python predict.py
+```
+
+If the environment is already active, navigate directly into the project folder. On macOS/Linux, activate with `source .venv/bin/activate` and create the artifact folders with `mkdir -p models outputs`. Edit the sample in `predict.py` to use a different input.
+
+---
+
+## 📁 Directory Structure
 
 ```text
 mall_customer_segmentation/
-|-- dataset/              # Raw and cleaned CSV files
-|-- models/               # Generated model, scaler and feature order (ignored)
-|-- outputs/              # Cluster profiles and diagnostic plots
-|-- preprocessing.py
-|-- train.py
-|-- evaluate.py
-|-- predict.py
-|-- requirements.txt
-`-- README.md
+├── dataset/
+│   ├── Mall_Customers.csv  # Raw dataset
+│   └── clean_mall_customers.csv  # Cleaned dataset
+├── models/  # Saved binaries (*.pkl - ignored by Git)
+│   ├── feature_columns.pkl
+│   ├── kmeans.pkl
+│   └── scaler.pkl
+├── outputs/  # Diagnostic profiles and plots
+│   ├── cluster_profiles.csv
+│   ├── cluster_sizes.png
+│   ├── elbow_method.png
+│   └── customer_segments.png
+├── preprocessing.py  # Data cleaning script
+├── train.py          # Scaling and model training
+├── evaluate.py       # Metrics and visual diagnostics
+├── predict.py        # Sample cluster assignment
+├── requirements.txt  # Python dependencies
+└── README.md         # Project documentation
 ```
-
-[Back to Clustering](../README.md) | [Repository overview](../../README.md)

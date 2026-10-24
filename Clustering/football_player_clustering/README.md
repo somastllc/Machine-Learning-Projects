@@ -1,95 +1,187 @@
-# Football Player Playing-Style Clustering
+# ⚽ Football Player Playing-Style Clustering
 
-Groups football players by statistical playing style rather than using their position labels.
+An end-to-end unsupervised Machine Learning project that discovers similar football players using **K-Means Clustering**, standardized numerical features, cluster profiles, and visual diagnostics.
 
 ---
 
-## Problem Statement & Overview
+## 📌 Problem Statement & Overview
 
-This unsupervised learning project uses **StandardScaler** and **K-Means** to discover similar records without training labels. The workflow covers preprocessing, training, evaluation, visualization, and prediction for a new sample.
+### The Problem
+Football position labels alone do not capture differences in attacking, passing, defensive, and ball-carrying contributions. Grouping players by statistical similarity provides another way to explore playing styles across squads and competitions.
 
-## Pipeline Architecture
+### The Machine Learning Solution
+This project reads the semicolon-separated football dataset, removes duplicates, and keeps players with at least 450 minutes. Missing Nation values are filled with Unknown and missing clustering features with their medians. Fifteen numerical features are standardized before fitting **K-Means Clustering** with three clusters. Position labels are reserved for interpretation.
+
+---
+
+## ⚙️ Pipeline Architecture
 
 ```text
-Raw CSV -> preprocessing.py -> cleaned CSV
-        -> train.py -> scaler + KMeans + feature columns
-        -> evaluate.py -> metrics, profiles and plots
-        -> predict.py -> sample cluster assignment
+    ┌────────────────────────────────────────────────────────────────┐
+    │ dataset/2022-2023 Football Player Stats.csv                    │
+    └────────────────────────────────────────────────────────────────┘
+                                    │
+                                    ▼
+    ┌────────────────────────────────────────────────────────────────┐
+    │ preprocessing.py                                               │
+    │ * Read semicolon / Latin-1 CSV                                 │
+    │ * Drop duplicates; keep Min >= 450                             │
+    │ * Fill missing Nation and features                             │
+    └────────────────────────────────────────────────────────────────┘
+                                    │
+                                    ▼
+    ┌────────────────────────────────────────────────────────────────┐
+    │ dataset/clean_football_players.csv                             │
+    └────────────────────────────────────────────────────────────────┘
+                                    │
+                                    ▼
+    ┌────────────────────────────────────────────────────────────────┐
+    │ train.py                                                       │
+    │ * StandardScaler on clustering features                        │
+    │ * Fit KMeans (k=3, n_init=20, random_state=42)                 │
+    │ * Save model, scaler and feature columns                       │
+    └────────────────────────────────────────────────────────────────┘
+                                    │
+                                    ▼
+    ┌────────────────────────────────────────────────────────────────┐
+    │ evaluate.py                         predict.py                 │
+    │ * Silhouette and Davies-Bouldin      * Align sample features   │
+    │ * Elbow curve and cluster plots      * Scale sample input      │
+    │ * Cluster profiles and sizes         * Predict cluster ID      │
+    └────────────────────────────────────────────────────────────────┘
 ```
 
-## Dataset & Feature Description
+---
+
+## 📊 Dataset & Feature Description
 
 - **Raw dataset:** `dataset/2022-2023 Football Player Stats.csv` (2,689 records in the supplied file).
 - **Clean dataset:** `dataset/clean_football_players.csv` (1,632 records in the supplied file).
-- **Clustering features (15):** `Shots`, `SoT`, `Assists`, `PasAss`, `PasProg`, `SCA`, `Tkl`, `Int`, `Blocks`, `Clr`, `ToAtt`, `ToSuc`, `CarProg`, `RecProg`, `AerWon`.
 
-Reads semicolon-separated, Latin-1 data, removes duplicates, keeps players with at least 450 minutes, fills missing Nation values with Unknown, and imputes missing numeric features with their medians. Player, Nation, Pos, Squad, Comp, Age and Min are metadata, excluded from training.
+### Input Features
 
-## Model & Clustering Approach
+| Feature | Description | Values / Units |
+| :--- | :--- | :--- |
+| `Shots` | Shots | Numerical |
+| `SoT` | Shots on target | Numerical |
+| `Assists` | Assists | Numerical |
+| `PasAss` | Passes leading to a shot | Numerical |
+| `PasProg` | Progressive passes | Numerical |
+| `SCA` | Shot-creating actions | Numerical |
+| `Tkl` | Tackles | Numerical |
+| `Int` | Interceptions | Numerical |
+| `Blocks` | Blocks | Numerical |
+| `Clr` | Clearances | Numerical |
+| `ToAtt` | Take-ons attempted | Numerical |
+| `ToSuc` | Successful take-ons | Numerical |
+| `CarProg` | Progressive carries | Numerical |
+| `RecProg` | Progressive passes received | Numerical |
+| `AerWon` | Aerial duels won | Numerical |
 
-- **Algorithm:** `KMeans(n_clusters=3, random_state=42, n_init=20)`.
-- **Scaling:** `StandardScaler` fitted on the clustering features.
-- **Saved objects:** `models/kmeans.pkl`, `models/scaler.pkl`, `models/feature_columns.pkl`.
-- **Inference:** `predict.py` aligns its example input to the saved feature order, scales it, and assigns a cluster.
+### Metadata & Interpretation
 
-The scripts use a fixed cluster count. Evaluation plots inertia for candidate values 2 through 8; it does not automatically select or retrain the final model with a different value.
+- Player, Nation, Pos, Squad, Comp, Age and Min: metadata excluded from training.
+- Pos: normalized position distribution by cluster.
+- Player, Pos, Squad and Comp: example players printed for each cluster.
 
-## Evaluation & Diagnostics
+### Cluster Assignment
 
-`evaluate.py` prints inertia, silhouette score, Davies-Bouldin score, cluster sizes, profiles, and a single-row sanity check. Higher silhouette and lower Davies-Bouldin scores generally indicate better separation; inertia is useful for comparing cluster counts on the same scaled dataset.
+- **`Cluster`**: an unsupervised group identifier from `0` to `2`.
+- No target labels are used during training. Cluster IDs are arbitrary; interpret each group using its feature means and metadata distributions.
 
-### Saved Cluster Profiles
+---
 
-These means come from the supplied `outputs/cluster_profiles.csv`; rerunning training can change the results and cluster IDs.
+## 🤖 Models Trained
 
-| Cluster | Shots | SoT | Assists | PasAss | PasProg | SCA | Tkl | Int | Blocks | Clr | ToAtt | ToSuc | CarProg | RecProg | AerWon |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 0 | 0.05 | 0.01 | 0.0 | 0.04 | 0.07 | 0.19 | 0.03 | 0.04 | 0.02 | 0.4 | 0.03 | 0.02 | 0.02 | 0.08 | 0.19 |
-| 1 | 2.02 | 0.74 | 0.16 | 1.4 | 3.64 | 3.12 | 1.39 | 0.54 | 0.91 | 0.74 | 2.67 | 1.05 | 2.43 | 6.36 | 1.08 |
-| 2 | 0.64 | 0.16 | 0.04 | 0.54 | 3.86 | 1.41 | 1.94 | 1.22 | 1.26 | 2.55 | 0.88 | 0.37 | 1.1 | 1.79 | 1.53 |
+1. **K-Means Clustering**
+   - Fits **3 clusters** using `n_clusters=3`, `n_init=20`, and `random_state=42`.
+   - Uses **15 numerical features** standardized with `StandardScaler`.
+   - Saves `kmeans.pkl`, `scaler.pkl`, and `feature_columns.pkl` in `models/`.
+   - Assigns a new sample by restoring the saved feature order and applying the fitted scaler before prediction.
 
-The saved position distribution shows cluster 0 is predominantly goalkeepers, cluster 1 contains more attacking profiles, and cluster 2 contains more defensive profiles. These are descriptive interpretations rather than target labels.
+The training script uses a fixed cluster count. The evaluation script compares inertia for candidate values of `k` from 2 through 8; it does not automatically change the trained model.
 
-### Visual Diagnostics
+---
 
-![Cluster visualization](outputs/player_clusters.png)
+## 📈 Evaluation & Diagnostics
 
-![Elbow method](outputs/elbow_method.png)
+Cluster quality is evaluated using unsupervised metrics:
 
-![Cluster sizes](outputs/cluster_sizes.png)
+| Evaluation Metric | Description | Interpretation |
+| :--- | :--- | :--- |
+| **Inertia** | Sum of squared distances to the assigned cluster centers | Compare across cluster counts on the same scaled data |
+| **Silhouette Score** | Cohesion within clusters relative to separation between clusters | Higher generally indicates better separation |
+| **Davies-Bouldin Score** | Within-cluster scatter relative to separation between cluster centers | Lower generally indicates better separation |
 
-## How to Run
+Metrics are computed on the standardized cleaned dataset used for training.
 
-Run these PowerShell commands from this project folder. The shared environment lives in the parent `Clustering` directory.
+The script also prints cluster sizes, mean profiles, metadata summaries, and a single-row prediction sanity check. These diagnostics describe the fitted groups; they are not supervised classification accuracy.
+
+### Diagnostic Artifacts (Saved in `outputs/`)
+
+- `outputs/cluster_profiles.csv`: Mean training features by cluster.
+- `outputs/cluster_sizes.png`: Number of records assigned to each cluster.
+- `outputs/elbow_method.png`: Inertia for candidate cluster counts from 2 through 8.
+- `outputs/player_clusters.png`: Two-dimensional PCA projection of the standardized playing-style features.
+- `outputs/position_distribution.csv`: Normalized position distribution for each cluster.
+
+---
+
+## 💻 How to Run
+
+Run the commands from `football_player_clustering/`. Create and activate the shared environment once from `Clustering/`:
 
 ```powershell
-# Create the environment once if it does not exist
-python -m venv ../.venv
-../.venv/Scripts/python.exe -m pip install -r requirements.txt
-
-# Model directories are ignored by Git, so create them after cloning
-New-Item -ItemType Directory -Force models, outputs | Out-Null
-../.venv/Scripts/python.exe preprocessing.py
-../.venv/Scripts/python.exe train.py
-../.venv/Scripts/python.exe evaluate.py
-../.venv/Scripts/python.exe predict.py
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+cd football_player_clustering
 ```
 
-On macOS/Linux, use `../.venv/bin/python` and `mkdir -p models outputs`. Run scripts from this project directory because their paths are relative to the current working directory. Edit the example in `predict.py` to assign your own sample; cluster IDs are arbitrary identifiers.
+```powershell
+# 1. Install dependencies
+python -m pip install -r requirements.txt
 
-## Directory Structure
+# 2. Create directories for generated artifacts after cloning
+New-Item -ItemType Directory -Force models, outputs | Out-Null
+
+# 3. Clean the raw dataset
+python preprocessing.py
+
+# 4. Scale features, train K-Means, and export model binaries
+python train.py
+
+# 5. Evaluate clustering metrics and generate diagnostic plots
+python evaluate.py
+
+# 6. Assign a cluster to the example input
+python predict.py
+```
+
+If the environment is already active, navigate directly into the project folder. On macOS/Linux, activate with `source .venv/bin/activate` and create the artifact folders with `mkdir -p models outputs`. Edit the sample in `predict.py` to use a different input.
+
+---
+
+## 📁 Directory Structure
 
 ```text
 football_player_clustering/
-|-- dataset/              # Raw and cleaned CSV files
-|-- models/               # Generated model, scaler and feature order (ignored)
-|-- outputs/              # Cluster profiles and diagnostic plots
-|-- preprocessing.py
-|-- train.py
-|-- evaluate.py
-|-- predict.py
-|-- requirements.txt
-`-- README.md
+├── dataset/
+│   ├── 2022-2023 Football Player Stats.csv  # Raw dataset
+│   └── clean_football_players.csv  # Cleaned dataset
+├── models/  # Saved binaries (*.pkl - ignored by Git)
+│   ├── feature_columns.pkl
+│   ├── kmeans.pkl
+│   └── scaler.pkl
+├── outputs/  # Diagnostic profiles and plots
+│   ├── cluster_profiles.csv
+│   ├── cluster_sizes.png
+│   ├── elbow_method.png
+│   ├── player_clusters.png
+│   └── position_distribution.csv
+├── preprocessing.py  # Data cleaning script
+├── train.py          # Scaling and model training
+├── evaluate.py       # Metrics and visual diagnostics
+├── predict.py        # Sample cluster assignment
+├── requirements.txt  # Python dependencies
+└── README.md         # Project documentation
 ```
-
-[Back to Clustering](../README.md) | [Repository overview](../../README.md)
